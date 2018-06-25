@@ -32,8 +32,9 @@ public class ArrayStorage {
 
         for (int i = 0; i < count; i++) {
             if (uuid.equals(storage[i].uuid)) {
-                System.arraycopy(storage, i + 1, storage, i, count - 1);
+                System.arraycopy(storage, i + 1, storage, i, count - i - 1);
                 count--;
+                System.out.println(count);
             }
         }
 
