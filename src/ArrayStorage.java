@@ -10,7 +10,7 @@ public class ArrayStorage {
     private int count = 0;
 
     void clear() {
-        Arrays.fill(storage, 0, count - 1, null);
+        Arrays.fill(storage, 0, count, null);
         count = 0;
     }
 
@@ -20,11 +20,9 @@ public class ArrayStorage {
 
     Resume get(final String uuid) {
 
-        for (int i = 0; i < count - 1; i++) {
+        for (int i = 0; i < count; i++) {
             if (uuid.equals(storage[i].uuid)) {
                 return storage[i];
-            } else {
-                break;
             }
         }
         return null;
@@ -32,14 +30,12 @@ public class ArrayStorage {
 
     void delete(final String uuid) {
 
-        int i;
-        for (i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             if (uuid.equals(storage[i].uuid)) {
-                break;
+                System.arraycopy(storage, i + 1, storage, i, count - 1);
+                count--;
             }
         }
-        System.arraycopy(storage, i + 1, storage, i, count - 1);
-        count--;
 
     }
 
