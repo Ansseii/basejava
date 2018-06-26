@@ -31,11 +31,7 @@ public class ArrayStorage {
 
     public Resume get(final String uuid) {
         if (resumeIsPresent(uuid)) {
-            for (int i = 0; i < count; i++) {
-                if (uuid.equals(storage[i].getUuid())) {
-                    return storage[i];
-                }
-            }
+            return storage[getIndexOfUuid(uuid)];
         }
         System.out.println("Resume is not present");
         return null;
@@ -67,23 +63,23 @@ public class ArrayStorage {
 
     public void update(final Resume resume) {
         if (resumeIsPresent(resume.getUuid())) {
-            for (int i = 0; i < count; i++) {
-                if (resumeIsPresent(storage[i].getUuid())) {
-                    storage[i] = resume;
-                }
-            }
+            storage[getIndexOfUuid(resume.getUuid())] = resume;
         } else {
             System.out.println("Resume is not present");
         }
     }
 
     private boolean resumeIsPresent(final String uuid) {
+        return getIndexOfUuid(uuid) != -1;
+    }
+
+    private int getIndexOfUuid(final String uuid) {
         for (int i = 0; i < count; i++) {
             if (uuid.equals(storage[i].getUuid())) {
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 
 }
