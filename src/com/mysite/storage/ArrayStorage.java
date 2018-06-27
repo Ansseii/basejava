@@ -18,8 +18,8 @@ public class ArrayStorage {
     }
 
     public void save(final Resume resume) {
-        if (this.count < storage.length) {
-            if (!resumeIsPresent(resume.getUuid())) {
+        if (count < storage.length) {
+            if (getIndexOfUuid(resume.getUuid()) == -1) {
                 storage[count++] = resume;
             } else {
                 System.out.println("Resume is present");
@@ -30,7 +30,7 @@ public class ArrayStorage {
     }
 
     public Resume get(final String uuid) {
-        if (resumeIsPresent(uuid)) {
+        if (getIndexOfUuid(uuid) != -1) {
             return storage[getIndexOfUuid(uuid)];
         }
         System.out.println("Resume is not present");
@@ -38,13 +38,11 @@ public class ArrayStorage {
     }
 
     public void delete(final String uuid) {
-        if (resumeIsPresent(uuid)) {
-            for (int i = 0; i < count; i++) {
-                if (uuid.equals(storage[i].getUuid())) {
-                    System.arraycopy(storage, i + 1, storage, i, count - i - 1);
-                    count--;
-                }
-            }
+        int index = getIndexOfUuid(uuid);
+        if (index != -1) {
+            storage[index] = storage[count - 1];
+            storage[count - 1] = null;
+            count--;
         } else {
             System.out.println("Resume is not present");
         }
@@ -62,15 +60,12 @@ public class ArrayStorage {
     }
 
     public void update(final Resume resume) {
-        if (resumeIsPresent(resume.getUuid())) {
-            storage[getIndexOfUuid(resume.getUuid())] = resume;
+        int index = getIndexOfUuid(resume.getUuid());
+        if (index != -1) {
+            storage[index] = resume;
         } else {
             System.out.println("Resume is not present");
         }
-    }
-
-    private boolean resumeIsPresent(final String uuid) {
-        return getIndexOfUuid(uuid) != -1;
     }
 
     private int getIndexOfUuid(final String uuid) {
