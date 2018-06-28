@@ -30,8 +30,9 @@ public class ArrayStorage {
     }
 
     public Resume get(final String uuid) {
-        if (getIndexOfUuid(uuid) != -1) {
-            return storage[getIndexOfUuid(uuid)];
+        int index = getIndexOfUuid(uuid);
+        if (index != -1) {
+            return storage[index];
         }
         System.out.println("Resume is not present");
         return null;
