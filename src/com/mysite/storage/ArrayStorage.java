@@ -2,75 +2,23 @@ package com.mysite.storage;
 
 import com.mysite.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class ArrayStorage extends AbstractArrayStorage {
 
-    private final Resume[] storage = new Resume[10000];
-    private int count = 0;
-
-    public void clear() {
-        Arrays.fill(storage, 0, count, null);
-        count = 0;
+    @Override
+    protected void insertElement(Resume resume, int index) {
+        storage[size] = resume;
     }
 
-    public void save(final Resume resume) {
-        if (count < storage.length) {
-            if (getIndexOfUuid(resume.getUuid()) == -1) {
-                storage[count++] = resume;
-            } else {
-                System.out.println("Resume is present");
-            }
-        } else {
-            System.out.println("There is no space in the storage");
-        }
+    @Override
+    protected void fillElement(int index) {
+        storage[index] = storage[size - 1];
     }
 
-    public Resume get(final String uuid) {
-        int index = getIndexOfUuid(uuid);
-        if (index != -1) {
-            return storage[index];
-        }
-        System.out.println("Resume is not present");
-        return null;
-    }
-
-    public void delete(final String uuid) {
-        int index = getIndexOfUuid(uuid);
-        if (index != -1) {
-            storage[index] = storage[count - 1];
-            storage[count - 1] = null;
-            count--;
-        } else {
-            System.out.println("Resume is not present");
-        }
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, count);
-    }
-
-    public int size() {
-        return count;
-    }
-
-    public void update(final Resume resume) {
-        int index = getIndexOfUuid(resume.getUuid());
-        if (index != -1) {
-            storage[index] = resume;
-        } else {
-            System.out.println("Resume is not present");
-        }
-    }
-
-    private int getIndexOfUuid(final String uuid) {
-        for (int i = 0; i < count; i++) {
+    protected int getIndex(final String uuid) {
+        for (int i = 0; i < size; i++) {
             if (uuid.equals(storage[i].getUuid())) {
                 return i;
             }
