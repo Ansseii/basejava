@@ -58,7 +58,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public Resume get(final String uuid) {
         int index = getIndex(uuid);
-        if (index < -1) {
+        if (index < 0) {
             System.out.println("Resume " + uuid + " not exist");
             return null;
         }
