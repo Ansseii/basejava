@@ -8,12 +8,12 @@ import com.mysite.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void insertElement(Resume resume, int index) {
+    protected void insertElement(final Resume resume, final int index) {
         storage[size] = resume;
     }
 
     @Override
-    protected void fillElement(int index) {
+    protected void fillElement(final int index) {
         storage[index] = storage[size - 1];
     }
 
@@ -25,6 +25,5 @@ public class ArrayStorage extends AbstractArrayStorage {
         }
         return -1;
     }
-
 }
 

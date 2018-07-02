@@ -8,7 +8,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected static final int STORAGE_LIMIT = 10000;
 
-    protected Resume[] storage = new Resume[STORAGE_LIMIT];
+    protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
     public int size() {
@@ -22,7 +22,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(final Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (index != -1) {
+        if (index >= 0) {
             storage[index] = resume;
         } else {
             System.out.println("Resume not exist");
@@ -33,7 +33,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOf(storage, size);
     }
 
-    public void save(Resume resume) {
+    public void save(final Resume resume) {
         int index = getIndex(resume.getUuid());
         if (index >= 0) {
             System.out.println("Resume " + resume.getUuid() + " already exist");
@@ -45,7 +45,7 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public void delete(String uuid) {
+    public void delete(final String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
             System.out.println("Resume " + uuid + " not exist");
@@ -56,19 +56,19 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public Resume get(String uuid) {
+    public Resume get(final String uuid) {
         int index = getIndex(uuid);
-        if (index == -1) {
+        if (index < -1) {
             System.out.println("Resume " + uuid + " not exist");
             return null;
         }
         return storage[index];
     }
 
-    protected abstract void fillElement(int index);
+    protected abstract void fillElement(final int index);
 
-    protected abstract void insertElement(Resume resume, int index);
+    protected abstract void insertElement(final Resume resume, final int index);
 
-    protected abstract int getIndex(String uuid);
+    protected abstract int getIndex(final String uuid);
 }
 

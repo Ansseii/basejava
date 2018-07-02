@@ -6,13 +6,13 @@ public interface Storage {
 
     void clear();
 
-    void update(Resume r);
+    void update(final Resume r);
 
-    void save(Resume r);
+    void save(final Resume r);
 
-    Resume get(String uuid);
+    Resume get(final String uuid);
 
-    void delete(String uuid);
+    void delete(final String uuid);
 
     Resume[] getAll();
 
