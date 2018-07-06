@@ -12,7 +12,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void insertElement( final Resume resume, final int index) {
+    protected void insertElement(final Resume resume, final int index) {
         int idx = index;
         if (idx < 0) {
             idx = -idx - 1;
@@ -24,7 +24,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected int getIndex(final String uuid) {
         Resume searchKey = new Resume(uuid);
-        searchKey.setUuid(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }
