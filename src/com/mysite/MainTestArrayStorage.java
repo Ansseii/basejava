@@ -1,3 +1,5 @@
+package com.mysite;
+
 import com.mysite.model.Resume;
 import com.mysite.storage.ArrayStorage;
 
