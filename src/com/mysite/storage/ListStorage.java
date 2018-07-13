@@ -25,22 +25,22 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateForEachRealization(final Resume resume, final Object element) {
+    protected void updateForAnyRealization(final Resume resume, final Object element) {
         list.set((Integer) element, resume);
     }
 
     @Override
-    protected void saveForEachRealization(final Resume resume, final Object element) {
+    protected void saveForAnyRealization(final Resume resume, final Object element) {
         list.add(resume);
     }
 
     @Override
-    protected void deleteForEachRealization(final Object element) {
+    protected void deleteForAnyRealization(final Object element) {
         list.remove(((Integer) element).intValue());
     }
 
     @Override
-    protected Resume getForEachRealization(final Object element) {
+    protected Resume getForAnyRealization(final Object element) {
         return list.get((Integer) element);
     }
 

@@ -8,22 +8,22 @@ public abstract class AbstractStorage implements Storage {
 
     public void update(final Resume resume) {
         Object searchElement = getExistedElement(resume.getUuid());
-        updateForEachRealization(resume, searchElement);
+        updateForAnyRealization(resume, searchElement);
     }
 
     public void save(final Resume resume) {
         Object element = getNotExistedElement(resume.getUuid());
-        saveForEachRealization(resume, element);
+        saveForAnyRealization(resume, element);
     }
 
     public void delete(final String uuid) {
         Object element = getExistedElement(uuid);
-        deleteForEachRealization(element);
+        deleteForAnyRealization(element);
     }
 
     public Resume get(final String uuid) {
         Object element = getExistedElement(uuid);
-        return getForEachRealization(element);
+        return getForAnyRealization(element);
     }
 
     private Object getExistedElement(final String uuid) {
@@ -46,12 +46,12 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract boolean isExist(final Object element);
 
-    protected abstract void updateForEachRealization(final Resume resume, final Object element);
+    protected abstract void updateForAnyRealization(final Resume resume, final Object element);
 
-    protected abstract void saveForEachRealization(final Resume resume, final Object element);
+    protected abstract void saveForAnyRealization(final Resume resume, final Object element);
 
-    protected abstract void deleteForEachRealization(final Object element);
+    protected abstract void deleteForAnyRealization(final Object element);
 
-    protected abstract Resume getForEachRealization(final Object element);
+    protected abstract Resume getForAnyRealization(final Object element);
 
 }

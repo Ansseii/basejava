@@ -16,22 +16,22 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateForEachRealization(Resume resume, Object element) {
+    protected void updateForAnyRealization(Resume resume, Object element) {
 
     }
 
     @Override
-    protected void saveForEachRealization(Resume resume, Object element) {
+    protected void saveForAnyRealization(Resume resume, Object element) {
 
     }
 
     @Override
-    protected void deleteForEachRealization(Object element) {
+    protected void deleteForAnyRealization(Object element) {
 
     }
 
     @Override
-    protected Resume getForEachRealization(Object element) {
+    protected Resume getForAnyRealization(Object element) {
         return null;
     }
 
