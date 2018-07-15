@@ -6,7 +6,7 @@ public class MapStorage extends AbstractStorage {
 
 
     @Override
-    protected Object getSearchElement(String uuid) {
+    protected Object getSearchIndex(String uuid) {
         return null;
     }
 
@@ -16,22 +16,22 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateForAnyRealization(Resume resume, Object element) {
+    protected void toUpdate(Resume resume, Object element) {
 
     }
 
     @Override
-    protected void saveForAnyRealization(Resume resume, Object element) {
+    protected void toSave(Resume resume, Object element) {
 
     }
 
     @Override
-    protected void deleteForAnyRealization(Object element) {
+    protected void toDelete(Object element) {
 
     }
 
     @Override
-    protected Resume getForAnyRealization(Object element) {
+    protected Resume toGet(Object element) {
         return null;
     }
 

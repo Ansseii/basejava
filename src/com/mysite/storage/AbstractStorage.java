@@ -8,50 +8,50 @@ public abstract class AbstractStorage implements Storage {
 
     public void update(final Resume resume) {
         Object searchElement = getExistedElement(resume.getUuid());
-        updateForAnyRealization(resume, searchElement);
+        toUpdate(resume, searchElement);
     }
 
     public void save(final Resume resume) {
-        Object element = getNotExistedElement(resume.getUuid());
-        saveForAnyRealization(resume, element);
+        Object searchElement = getNotExistedElement(resume.getUuid());
+        toSave(resume, searchElement);
     }
 
     public void delete(final String uuid) {
-        Object element = getExistedElement(uuid);
-        deleteForAnyRealization(element);
+        Object searchElement = getExistedElement(uuid);
+        toDelete(searchElement);
     }
 
     public Resume get(final String uuid) {
-        Object element = getExistedElement(uuid);
-        return getForAnyRealization(element);
+        Object searchElement = getExistedElement(uuid);
+        return toGet(searchElement);
     }
 
     private Object getExistedElement(final String uuid) {
-        Object element = getSearchElement(uuid);
-        if (!isExist(element)) {
+        Object searchElement = getSearchIndex(uuid);
+        if (!isExist(searchElement)) {
             throw new NotExistStorageException(uuid);
         }
-        return element;
+        return searchElement;
     }
 
     private Object getNotExistedElement(final String uuid) {
-        Object element = getSearchElement(uuid);
-        if (isExist(element)) {
+        Object searchElement = getSearchIndex(uuid);
+        if (isExist(searchElement)) {
             throw new ExistStorageException(uuid);
         }
-        return element;
+        return searchElement;
     }
 
-    protected abstract Object getSearchElement(final String uuid);
+    protected abstract Object getSearchIndex(final String uuid);
 
     protected abstract boolean isExist(final Object element);
 
-    protected abstract void updateForAnyRealization(final Resume resume, final Object element);
+    protected abstract void toUpdate(final Resume resume, final Object element);
 
-    protected abstract void saveForAnyRealization(final Resume resume, final Object element);
+    protected abstract void toSave(final Resume resume, final Object element);
 
-    protected abstract void deleteForAnyRealization(final Object element);
+    protected abstract void toDelete(final Object element);
 
-    protected abstract Resume getForAnyRealization(final Object element);
+    protected abstract Resume toGet(final Object element);
 
 }

@@ -10,7 +10,7 @@ public class ListStorage extends AbstractStorage {
     private final List<Resume> list = new ArrayList<>();
 
     @Override
-    protected Integer getSearchElement(final String uuid) {
+    protected Integer getSearchIndex(final String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (uuid.equals(list.get(i).getUuid())) {
                 return i;
@@ -25,23 +25,23 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateForAnyRealization(final Resume resume, final Object element) {
-        list.set((Integer) element, resume);
+    protected void toUpdate(final Resume resume, final Object index) {
+        list.set((Integer) index, resume);
     }
 
     @Override
-    protected void saveForAnyRealization(final Resume resume, final Object element) {
+    protected void toSave(final Resume resume, final Object index) {
         list.add(resume);
     }
 
     @Override
-    protected void deleteForAnyRealization(final Object element) {
-        list.remove(((Integer) element).intValue());
+    protected void toDelete(final Object index) {
+        list.remove(((Integer) index).intValue());
     }
 
     @Override
-    protected Resume getForAnyRealization(final Object element) {
-        return list.get((Integer) element);
+    protected Resume toGet(final Object index) {
+        return list.get((Integer) index);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return list.toArray(new Resume[size()]);
+        return list.toArray(new Resume[0]);
     }
 
     @Override
