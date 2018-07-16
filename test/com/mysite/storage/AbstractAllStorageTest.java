@@ -7,23 +7,26 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class AbstractAllStorageTest {
 
     protected final Storage storage;
 
     private static final String UUID_1 = "uuid1";
-    private static final Resume resume1 = new Resume(UUID_1);
+    private static final Resume resume1 = new Resume(UUID_1, "Ivanov Ivan Ivanovich");
     private static final String UUID_2 = "uuid2";
-    private static final Resume resume2 = new Resume(UUID_2);
+    private static final Resume resume2 = new Resume(UUID_2, "Petrov Petr Petrovich");
     private static final String UUID_3 = "uuid3";
-    private static final Resume resume3 = new Resume(UUID_3);
+    private static final Resume resume3 = new Resume(UUID_3, "Ivanov Ivan Ivanovich");
     private static final String UUID_4 = "uuid4";
-    private static final Resume resume4 = new Resume(UUID_4);
+    private static final Resume resume4 = new Resume(UUID_4, "Sidorov Andrei Andreevich");
 
     private static final String UUID_5 = "uuid5";
-    private static final Resume resume5 = new Resume(UUID_5);
+    private static final Resume resume5 = new Resume(UUID_5, "Sidorov Andrei Andreevich");
 
-    public AbstractAllStorageTest(Storage storage) {
+    public AbstractAllStorageTest(final Storage storage) {
         this.storage = storage;
     }
 
@@ -59,9 +62,13 @@ public abstract class AbstractAllStorageTest {
     }
 
     @Test
-    public void getAll() {
-        Resume[] current = new Resume[]{resume1, resume2, resume3, resume4};
-        Assert.assertArrayEquals(current, storage.getAll());
+    public void getAllSorted() {
+        List<Resume> current = new ArrayList<>();
+        current.add(resume1);
+        current.add(resume2);
+        current.add(resume3);
+        current.add(resume4);
+        Assert.assertArrayEquals(current.toArray(), storage.getAllSorted().toArray());
     }
 
     @Test

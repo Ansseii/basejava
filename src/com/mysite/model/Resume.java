@@ -6,13 +6,15 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume> {
 
     private final String uuid;
+    private final String fullName;
 
     public Resume() {
-        this(UUID.randomUUID().toString());
+        this(UUID.randomUUID().toString(), "test");
     }
 
-    public Resume(String uuid) {
+    public Resume(final String uuid, final String fullName) {
         this.uuid = uuid;
+        this.fullName = fullName;
     }
 
     public String getUuid() {

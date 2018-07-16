@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public abstract class AbstractArrayStorageTest extends AbstractAllStorageTest {
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public AbstractArrayStorageTest(final Storage storage) {
         super(storage);
     }
 
