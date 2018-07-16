@@ -4,6 +4,9 @@ import com.mysite.exception.ExistStorageException;
 import com.mysite.exception.NotExistStorageException;
 import com.mysite.model.Resume;
 
+import java.util.Collections;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
 
     public void update(final Resume resume) {
@@ -41,6 +44,14 @@ public abstract class AbstractStorage implements Storage {
         }
         return searchElement;
     }
+
+    public List<Resume> getAllSorted() {
+        List<Resume> list = toList();
+        Collections.sort(list);
+        return list;
+    }
+
+    protected abstract List<Resume> toList();
 
     protected abstract Object getSearchElement(final String uuid);
 

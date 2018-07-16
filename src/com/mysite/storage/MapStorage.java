@@ -2,10 +2,7 @@ package com.mysite.storage;
 
 import com.mysite.model.Resume;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MapStorage extends AbstractStorage {
 
@@ -13,46 +10,46 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object getSearchElement(String uuid) {
-        return null;
+        return uuid;
     }
 
     @Override
     protected boolean isExist(Object key) {
-        return false;
+        return map.containsKey(key);
     }
 
     @Override
     protected void toUpdate(Resume resume, Object key) {
-
+        map.put((String) key, resume);
     }
 
     @Override
     protected void toSave(Resume resume, Object key) {
-
+        map.put((String) key, resume);
     }
 
     @Override
     protected void toDelete(Object key) {
-
+        map.remove(key);
     }
 
     @Override
     protected Resume toGet(Object key) {
-        return null;
+        return map.get(key);
     }
 
     @Override
     public void clear() {
-
+        map.clear();
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        return new ArrayList<>();
+    protected List<Resume> toList() {
+        return new ArrayList<>(map.values());
     }
 
     @Override
     public int size() {
-        return 0;
+        return map.size();
     }
 }

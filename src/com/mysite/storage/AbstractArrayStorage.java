@@ -22,12 +22,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void toUpdate(final Resume resume, final Object index) {
-        storage[(Integer) index] = resume;
+    protected List<Resume> toList() {
+        return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
-    public List<Resume> getAllSorted() {
-        return Arrays.asList(Arrays.copyOf(storage, size));
+    @Override
+    protected void toUpdate(final Resume resume, final Object index) {
+        storage[(Integer) index] = resume;
     }
 
     @Override
