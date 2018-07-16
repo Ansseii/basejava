@@ -6,7 +6,7 @@ public class MapStorage extends AbstractStorage {
 
 
     @Override
-    protected Object getSearchIndex(String uuid) {
+    protected Object getSearchElement(String uuid) {
         return null;
     }
 

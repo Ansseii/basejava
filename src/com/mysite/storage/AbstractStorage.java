@@ -27,7 +27,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getExistedElement(final String uuid) {
-        Object searchElement = getSearchIndex(uuid);
+        Object searchElement = getSearchElement(uuid);
         if (!isExist(searchElement)) {
             throw new NotExistStorageException(uuid);
         }
@@ -35,14 +35,14 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getNotExistedElement(final String uuid) {
-        Object searchElement = getSearchIndex(uuid);
+        Object searchElement = getSearchElement(uuid);
         if (isExist(searchElement)) {
             throw new ExistStorageException(uuid);
         }
         return searchElement;
     }
 
-    protected abstract Object getSearchIndex(final String uuid);
+    protected abstract Object getSearchElement(final String uuid);
 
     protected abstract boolean isExist(final Object element);
 
