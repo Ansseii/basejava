@@ -1,6 +1,7 @@
 package com.mysite.model;
 
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
@@ -26,18 +27,18 @@ public class Resume implements Comparable<Resume> {
     }
 
     @Override
-    public boolean equals(final Object object) {
-        if (this == object) return true;
-        if (object == null || getClass() != object.getClass()) return false;
-
-        Resume resume = (Resume) object;
-
-        return uuid.equals(resume.uuid);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Resume resume = (Resume) o;
+        return Objects.equals(uuid, resume.uuid) &&
+                Objects.equals(fullName, resume.fullName);
     }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+
+        return Objects.hash(uuid, fullName);
     }
 
     @Override
