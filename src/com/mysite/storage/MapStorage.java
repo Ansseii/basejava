@@ -9,32 +9,32 @@ public class MapStorage extends AbstractStorage {
     private final Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected Object getSearchElement(String uuid) {
+    protected Object getSearchElement(final String uuid) {
         return uuid;
     }
 
     @Override
-    protected boolean isExist(Object key) {
+    protected boolean isExist(final Object key) {
         return map.containsKey(key);
     }
 
     @Override
-    protected void toUpdate(Resume resume, Object key) {
+    protected void toUpdate(final Resume resume, final Object key) {
         map.put((String) key, resume);
     }
 
     @Override
-    protected void toSave(Resume resume, Object key) {
+    protected void toSave(final Resume resume, final Object key) {
         map.put((String) key, resume);
     }
 
     @Override
-    protected void toDelete(Object key) {
+    protected void toDelete(final Object key) {
         map.remove(key);
     }
 
     @Override
-    protected Resume toGet(Object key) {
+    protected Resume toGet(final Object key) {
         return map.get(key);
     }
 
