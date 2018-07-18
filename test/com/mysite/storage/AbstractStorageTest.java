@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractAllStorageTest {
+public abstract class AbstractStorageTest {
 
     protected final Storage storage;
 
@@ -27,7 +27,7 @@ public abstract class AbstractAllStorageTest {
     private static final String UUID_5 = "uuid5";
     private static final Resume resume5 = new Resume(UUID_5, "Sidorov Andrei Andreevich");
 
-    public AbstractAllStorageTest(final Storage storage) {
+    public AbstractStorageTest(final Storage storage) {
         this.storage = storage;
     }
 
@@ -58,7 +58,7 @@ public abstract class AbstractAllStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void attemptUpdateIfResumeNotExist() {
+    public void updateIfResumeNotExist() {
         storage.get(UUID_5);
     }
 
@@ -78,7 +78,7 @@ public abstract class AbstractAllStorageTest {
     }
 
     @Test(expected = ExistStorageException.class)
-    public void attemptSaveIfResumeAlreadyExist() {
+    public void saveIfResumeAlreadyExist() {
         storage.save(resume4);
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractAllStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void getNotExist() {
+    public void getIfResumeNotExist() {
         storage.get(UUID_5);
     }
 

@@ -6,7 +6,7 @@ import com.mysite.model.Resume;
 import org.junit.Assert;
 import org.junit.Test;
 
-public abstract class AbstractArrayStorageTest extends AbstractAllStorageTest {
+public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     public AbstractArrayStorageTest(final Storage storage) {
         super(storage);
