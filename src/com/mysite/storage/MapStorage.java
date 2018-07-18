@@ -8,37 +8,37 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MapStorage extends AbstractStorage {
+public class MapStorage extends AbstractStorage<String> {
 
     private final Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected Object getSearchElement(final String uuid) {
+    protected String getSearchElement(final String uuid) {
         return uuid;
     }
 
     @Override
-    protected boolean isExist(final Object key) {
+    protected boolean isExist(final String key) {
         return map.containsKey(key);
     }
 
     @Override
-    protected void toUpdate(final Object key, final Resume resume) {
-        map.put((String) key, resume);
+    protected void toUpdate(final String key, final Resume resume) {
+        map.put(key, resume);
     }
 
     @Override
-    protected void toSave(final Object key, final Resume resume) {
-        map.put((String) key, resume);
+    protected void toSave(final String key, final Resume resume) {
+        map.put(key, resume);
     }
 
     @Override
-    protected void toDelete(final Object key) {
+    protected void toDelete(final String key) {
         map.remove(key);
     }
 
     @Override
-    protected Resume toGet(final Object key) {
+    protected Resume toGet(final String key) {
         return map.get(key);
     }
 

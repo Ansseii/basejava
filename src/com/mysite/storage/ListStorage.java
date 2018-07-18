@@ -5,7 +5,7 @@ import com.mysite.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
 
     private final List<Resume> list = new ArrayList<>();
 
@@ -20,28 +20,28 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(final Object element) {
+    protected boolean isExist(final Integer element) {
         return element != null;
     }
 
     @Override
-    protected void toUpdate(final Object index, final Resume resume) {
-        list.set((Integer) index, resume);
+    protected void toUpdate(final Integer index, final Resume resume) {
+        list.set(index, resume);
     }
 
     @Override
-    protected void toSave(final Object index, final Resume resume) {
+    protected void toSave(final Integer index, final Resume resume) {
         list.add(resume);
     }
 
     @Override
-    protected void toDelete(final Object index) {
-        list.remove(((Integer) index).intValue());
+    protected void toDelete(final Integer index) {
+        list.remove((index).intValue());
     }
 
     @Override
-    protected Resume toGet(final Object index) {
-        return list.get((Integer) index);
+    protected Resume toGet(final Integer index) {
+        return list.get(index);
     }
 
     @Override
