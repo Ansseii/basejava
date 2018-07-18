@@ -25,12 +25,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void toUpdate(final Resume resume, final Object index) {
+    protected void toUpdate(final Object index, final Resume resume) {
         list.set((Integer) index, resume);
     }
 
     @Override
-    protected void toSave(final Resume resume, final Object index) {
+    protected void toSave(final Object index, final Resume resume) {
         list.add(resume);
     }
 

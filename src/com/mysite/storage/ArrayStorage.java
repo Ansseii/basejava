@@ -11,7 +11,7 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void fillElement(final int index) {
-        storage[index] = storage[size - 1];
+        storage[index] = storage[size];
     }
 
     protected Integer getSearchElement(final String uuid) {

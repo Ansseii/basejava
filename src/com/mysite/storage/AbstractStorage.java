@@ -11,12 +11,12 @@ public abstract class AbstractStorage implements Storage {
 
     public void update(final Resume resume) {
         Object searchElement = getExistedElement(resume.getUuid());
-        toUpdate(resume, searchElement);
+        toUpdate(searchElement, resume);
     }
 
     public void save(final Resume resume) {
         Object searchElement = getNotExistedElement(resume.getUuid());
-        toSave(resume, searchElement);
+        toSave(searchElement, resume);
     }
 
     public void delete(final String uuid) {
@@ -46,9 +46,9 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public List<Resume> getAllSorted() {
-        List<Resume> list = toList();
-        Collections.sort(list);
-        return list;
+        List<Resume> resumes = toList();
+        Collections.sort(resumes);
+        return resumes;
     }
 
     protected abstract List<Resume> toList();
@@ -57,12 +57,11 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract boolean isExist(final Object element);
 
-    protected abstract void toUpdate(final Resume resume, final Object element);
+    protected abstract void toUpdate(final Object element, final Resume resume);
 
-    protected abstract void toSave(final Resume resume, final Object element);
+    protected abstract void toSave(final Object element, final Resume resume);
 
     protected abstract void toDelete(final Object element);
 
     protected abstract Resume toGet(final Object element);
-
 }

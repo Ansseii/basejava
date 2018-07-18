@@ -2,7 +2,11 @@ package com.mysite.storage;
 
 import com.mysite.model.Resume;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class MapStorage extends AbstractStorage {
 
@@ -19,12 +23,12 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void toUpdate(final Resume resume, final Object key) {
+    protected void toUpdate(final Object key, final Resume resume) {
         map.put((String) key, resume);
     }
 
     @Override
-    protected void toSave(final Resume resume, final Object key) {
+    protected void toSave(final Object key, final Resume resume) {
         map.put((String) key, resume);
     }
 
