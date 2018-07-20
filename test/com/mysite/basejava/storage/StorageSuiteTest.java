@@ -12,5 +12,4 @@ import org.junit.runners.Suite;
         SortedArrayStorageTest.class
 })
 
-public class StorageSuiteTest {
-}
+public class StorageSuiteTest {}
