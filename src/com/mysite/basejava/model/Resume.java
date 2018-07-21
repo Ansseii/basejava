@@ -44,10 +44,9 @@ public class Resume implements Comparable<Resume> {
         contacts.put(type, contact);
     }
 
-    public void setField(final SectionType type, final Content content) {
+    public void setSection(final SectionType type, final Content content) {
         fields.put(type, content);
     }
-
 
 //    private String print(final Map map) {
 //        StringBuilder builder = new StringBuilder();
@@ -73,13 +72,11 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(uuid, fullName, contacts, fields);
     }
 
     @Override
     public String toString() {
-
         return uuid + " Name: " + fullName;
     }
 
