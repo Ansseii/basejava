@@ -60,26 +60,15 @@ public class Resume implements Comparable<Resume> {
     @Override
     public String toString() {
 
-        return uuid + " Name: " + fullName + "\n" + printContacts() + "\n" + "\n" + printFields();
+        return uuid + " Name: " + fullName + "\n" + print(contacts) + "\n" + "\n" + print(fields);
     }
 
-    private String printContacts() {
+    private String print(final Map map) {
         StringBuilder builder = new StringBuilder();
-        for (Map.Entry<ContactType, String> pair : contacts.entrySet()) {
-            builder.append(pair.getKey())
+        for (Object type : map.keySet()) {
+            builder.append(type)
                     .append(" ")
-                    .append(pair.getValue())
-                    .append("\n");
-        }
-        return builder.toString();
-    }
-
-    private String printFields() {
-        StringBuilder builder = new StringBuilder();
-        for (Map.Entry<SectionType, Content> pair : fields.entrySet()) {
-            builder.append(pair.getKey())
-                    .append(" ")
-                    .append(pair.getValue())
+                    .append(map.get(type))
                     .append("\n");
         }
         return builder.toString();
