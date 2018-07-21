@@ -56,24 +56,20 @@ public class Company {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(link, startDate, endDate, title, description);
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("\n")
-                .append(link)
-                .append("             ")
-                .append(title)
-                .append("\n")
-                .append(startDate)
-                .append(" - ")
-                .append(endDate)
-                .append("             ")
-                .append(description);
-
-        return builder.toString();
+        return "\n" +
+                link +
+                "             " +
+                title +
+                "\n" +
+                startDate +
+                " - " +
+                endDate +
+                "             " +
+                description;
     }
 }

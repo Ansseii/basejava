@@ -40,6 +40,26 @@ public class Resume implements Comparable<Resume> {
         return fields.get(type);
     }
 
+    public void setContact(final ContactType type, final String contact) {
+        contacts.put(type, contact);
+    }
+
+    public void setField(final SectionType type, final Content content) {
+        fields.put(type, content);
+    }
+
+
+//    private String print(final Map map) {
+//        StringBuilder builder = new StringBuilder();
+//        for (Object type : map.keySet()) {
+//            builder.append(type)
+//                    .append(" ")
+//                    .append(map.get(type))
+//                    .append("\n");
+//        }
+//        return builder.toString();
+//    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -60,31 +80,12 @@ public class Resume implements Comparable<Resume> {
     @Override
     public String toString() {
 
-        return uuid + " Name: " + fullName + "\n" + print(contacts) + "\n" + "\n" + print(fields);
-    }
-
-    private String print(final Map map) {
-        StringBuilder builder = new StringBuilder();
-        for (Object type : map.keySet()) {
-            builder.append(type)
-                    .append(" ")
-                    .append(map.get(type))
-                    .append("\n");
-        }
-        return builder.toString();
+        return uuid + " Name: " + fullName;
     }
 
     @Override
     public int compareTo(final Resume resume) {
         int compare = fullName.compareTo(resume.getFullName());
         return compare != 0 ? compare : uuid.compareTo(resume.getUuid());
-    }
-
-    public void addContact(final ContactType type, final String contact) {
-        contacts.put(type, contact);
-    }
-
-    public void addField(final SectionType type, final Content content) {
-        fields.put(type, content);
     }
 }

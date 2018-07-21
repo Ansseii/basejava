@@ -10,21 +10,21 @@ public class ResumeTest {
 
         Resume resume = new Resume("1", "John Smith");
 
-        resume.addContact(ContactType.MOBILE, "+7 123 4567");
-        resume.addContact(ContactType.SKYPE, "JohnSmith");
-        resume.addContact(ContactType.MAIL, "JohnSmith@gmail.com");
-        resume.addContact(ContactType.LINKED_IN, "https://linkedin.com");
-        resume.addContact(ContactType.GITHUB, "https://githib.com");
-        resume.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com");
-        resume.addContact(ContactType.HOMEPAGE, "https://JS.com");
+        resume.setContact(ContactType.MOBILE, "+7 123 4567");
+        resume.setContact(ContactType.SKYPE, "JohnSmith");
+        resume.setContact(ContactType.MAIL, "JohnSmith@gmail.com");
+        resume.setContact(ContactType.LINKED_IN, "https://linkedin.com");
+        resume.setContact(ContactType.GITHUB, "https://githib.com");
+        resume.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com");
+        resume.setContact(ContactType.HOMEPAGE, "https://JS.com");
 
-        resume.addField(SectionType.OBJECTIVE, new TextContent("my position"));
-        resume.addField(SectionType.PERSONAL, new TextContent("my personal information"));
-        resume.addField(SectionType.ACHIEVEMENT,
+        resume.setField(SectionType.OBJECTIVE, new TextContent("my position"));
+        resume.setField(SectionType.PERSONAL, new TextContent("my personal information"));
+        resume.setField(SectionType.ACHIEVEMENT,
                 new ListContent("achievement1", "achievement2", "achievement3"));
-        resume.addField(SectionType.QUALIFICATIONS,
+        resume.setField(SectionType.QUALIFICATIONS,
                 new ListContent("qualification1", "qualification2", "qualification3"));
-        resume.addField(SectionType.EXPERIENCE,
+        resume.setField(SectionType.EXPERIENCE,
                 new CompanyContent(
                         new Company(
                                 "ООО Рога и копыта",
@@ -40,7 +40,7 @@ public class ResumeTest {
                                 LocalDate.now(),
                                 "title2",
                                 "description2")));
-        resume.addField(SectionType.EDUCATION,
+        resume.setField(SectionType.EDUCATION,
                 new CompanyContent(
                         new Company(
                                 "ООО Рога и копыта",
