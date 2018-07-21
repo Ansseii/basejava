@@ -1,5 +1,7 @@
 package com.mysite.basejava.model;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,9 +9,8 @@ public class CompanyContent implements Content {
 
     private final List<Company> companies;
 
-    public CompanyContent(final List<Company> companies) {
-        Objects.requireNonNull(companies, "List of companies must not be null");
-        this.companies = companies;
+    public CompanyContent(final Company... company) {
+        companies = new LinkedList<>(Arrays.asList(company));
     }
 
     public List<Company> getCompanies() {

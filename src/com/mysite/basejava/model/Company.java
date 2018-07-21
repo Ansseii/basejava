@@ -5,23 +5,25 @@ import java.util.Objects;
 
 public class Company {
 
-    private final String url;
+    private final Link link;
     private final LocalDate startDate;
     private final LocalDate endDate;
+    private final String title;
     private final String description;
 
-    public Company(final String url, final LocalDate startDate, final LocalDate endDate, final String description) {
-        Objects.requireNonNull(url, "Url must not be null");
+    public Company(final String siteName, final String url, final LocalDate startDate,
+                   final LocalDate endDate, final String title, final String description) {
         Objects.requireNonNull(startDate, "StartDate must not be null");
         Objects.requireNonNull(endDate, "EndDate must not be null");
-        this.url = url;
+        this.link = new Link(siteName, url);
         this.startDate = startDate;
         this.endDate = endDate;
+        this.title = title;
         this.description = description;
     }
 
-    public String getUrl() {
-        return url;
+    public Link getLink() {
+        return link;
     }
 
     public LocalDate getStartDate() {
@@ -32,34 +34,46 @@ public class Company {
         return endDate;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public String getDescription() {
         return description;
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return Objects.equals(url, company.url) &&
+        return Objects.equals(link, company.link) &&
                 Objects.equals(startDate, company.startDate) &&
                 Objects.equals(endDate, company.endDate) &&
+                Objects.equals(title, company.title) &&
                 Objects.equals(description, company.description);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(url, startDate, endDate, description);
+        return Objects.hash(link, startDate, endDate, title, description);
     }
 
     @Override
     public String toString() {
-        return "Company{" +
-                "url='" + url + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", description='" + description + '\'' +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n")
+                .append(link)
+                .append("             ")
+                .append(title)
+                .append("\n")
+                .append(startDate)
+                .append(" - ")
+                .append(endDate)
+                .append("             ")
+                .append(description);
+
+        return builder.toString();
     }
 }

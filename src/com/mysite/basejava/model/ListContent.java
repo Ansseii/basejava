@@ -1,5 +1,7 @@
 package com.mysite.basejava.model;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -7,9 +9,8 @@ public class ListContent implements Content {
 
     private final List<String> content;
 
-    public ListContent(final List<String> content) {
-        Objects.requireNonNull(content, "Content must not be null");
-        this.content = content;
+    public ListContent(final String... element) {
+        content = new LinkedList<>(Arrays.asList(element));
     }
 
     public List<String> getContent() {
@@ -31,6 +32,12 @@ public class ListContent implements Content {
 
     @Override
     public String toString() {
-        return content.toString();
+        StringBuilder builder = new StringBuilder();
+        for (String string : content) {
+            builder.append("\n")
+                    .append("--")
+                    .append(string);
+        }
+        return builder.toString();
     }
 }

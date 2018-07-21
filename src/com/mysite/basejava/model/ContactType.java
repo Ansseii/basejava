@@ -2,12 +2,12 @@ package com.mysite.basejava.model;
 
 public enum ContactType {
 
-    MOBILE("Тел.: "),
-    SKYPE("Skype: "),
-    MAIL("Почта: "),
+    MOBILE("Тел.:"),
+    SKYPE("Skype:"),
+    MAIL("Почта:"),
     LINKED_IN("Профиль LinkedIn"),
     GITHUB("Профиль GitHub"),
-    STACKOWERFLOW("Профиль Stackoverflow"),
+    STACKOVERFLOW("Профиль Stackoverflow"),
     HOMEPAGE("Домашняя страница");
 
     private final String title;

@@ -59,12 +59,43 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public String toString() {
-        return uuid + " Name: " + fullName;
+
+        return uuid + " Name: " + fullName + "\n" + printContacts() + "\n" + "\n" + printFields();
+    }
+
+    private String printContacts() {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<ContactType, String> pair : contacts.entrySet()) {
+            builder.append(pair.getKey())
+                    .append(" ")
+                    .append(pair.getValue())
+                    .append("\n");
+        }
+        return builder.toString();
+    }
+
+    private String printFields() {
+        StringBuilder builder = new StringBuilder();
+        for (Map.Entry<SectionType, Content> pair : fields.entrySet()) {
+            builder.append(pair.getKey())
+                    .append(" ")
+                    .append(pair.getValue())
+                    .append("\n");
+        }
+        return builder.toString();
     }
 
     @Override
     public int compareTo(final Resume resume) {
         int compare = fullName.compareTo(resume.getFullName());
         return compare != 0 ? compare : uuid.compareTo(resume.getUuid());
+    }
+
+    public void addContact(final ContactType type, final String contact) {
+        contacts.put(type, contact);
+    }
+
+    public void addField(final SectionType type, final Content content) {
+        fields.put(type, content);
     }
 }
