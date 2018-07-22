@@ -32,6 +32,14 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, Content> getFields() {
+        return fields;
+    }
+
     public String getContacts(final ContactType type) {
         return contacts.get(type);
     }
@@ -47,17 +55,6 @@ public class Resume implements Comparable<Resume> {
     public void setSection(final SectionType type, final Content content) {
         fields.put(type, content);
     }
-
-//    private String print(final Map map) {
-//        StringBuilder builder = new StringBuilder();
-//        for (Object type : map.keySet()) {
-//            builder.append(type)
-//                    .append(" ")
-//                    .append(map.get(type))
-//                    .append("\n");
-//        }
-//        return builder.toString();
-//    }
 
     @Override
     public boolean equals(final Object o) {

@@ -38,6 +38,23 @@ public class ResumeTest {
         resume.setSection(SectionType.EXPERIENCE, experience);
         resume.setSection(SectionType.EDUCATION, education);
 
-        System.out.println(resume);
+        System.out.println(print(resume));
+    }
+
+    private static String print(final Resume resume) {
+        StringBuilder builder = new StringBuilder();
+        for (ContactType type : resume.getContacts().keySet()) {
+            builder.append(type)
+                    .append(" ")
+                    .append(resume.getContacts(type))
+                    .append("\n");
+        }
+        for (SectionType type : resume.getFields().keySet()) {
+            builder.append(type)
+                    .append(" ")
+                    .append(resume.getFields(type))
+                    .append("\n");
+        }
+        return builder.toString();
     }
 }
