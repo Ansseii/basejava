@@ -11,7 +11,7 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private final String fullName;
     private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private final Map<SectionType, Content> fields = new EnumMap<>(SectionType.class);
+    private final Map<SectionType, Content> sections = new EnumMap<>(SectionType.class);
 
     public Resume(final String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -32,20 +32,20 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
-    public Map<ContactType, String> getContacts() {
+    public Map<ContactType, String> getAllContacts() {
         return contacts;
     }
 
-    public Map<SectionType, Content> getFields() {
-        return fields;
+    public Map<SectionType, Content> getAllSections() {
+        return sections;
     }
 
-    public String getContacts(final ContactType type) {
-        return contacts.get(type);
+    public String getContact(final ContactType contact) {
+        return contacts.get(contact);
     }
 
-    public Content getFields(final SectionType type) {
-        return fields.get(type);
+    public Content getSection(final SectionType section) {
+        return sections.get(section);
     }
 
     public void setContact(final ContactType type, final String contact) {
@@ -53,7 +53,7 @@ public class Resume implements Comparable<Resume> {
     }
 
     public void setSection(final SectionType type, final Content content) {
-        fields.put(type, content);
+        sections.put(type, content);
     }
 
     @Override
@@ -64,12 +64,12 @@ public class Resume implements Comparable<Resume> {
         return Objects.equals(uuid, resume.uuid) &&
                 Objects.equals(fullName, resume.fullName) &&
                 Objects.equals(contacts, resume.contacts) &&
-                Objects.equals(fields, resume.fields);
+                Objects.equals(sections, resume.sections);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, fullName, contacts, fields);
+        return Objects.hash(uuid, fullName, contacts, sections);
     }
 
     @Override

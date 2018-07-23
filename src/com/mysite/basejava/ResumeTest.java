@@ -6,20 +6,24 @@ import java.time.LocalDate;
 
 public class ResumeTest {
 
+
     public static void main(String[] args) {
 
         Resume resume = new Resume("1", "John Smith");
-
+        Company company1 =
+                new Company("ООО Рога и копыта", "https://thebestsiteever.com",
+                        LocalDate.of(1992, 2, 14), LocalDate.of(2001, 6, 25),
+                        "title1", "description1"
+                );
+        Company company2 =
+                new Company("APPLE", "https://apple.com",
+                        LocalDate.of(2001, 6, 26), LocalDate.now(),
+                        "title2", "description2"
+                );
         TextContent objective = new TextContent("my position");
         TextContent personal = new TextContent("my personal information");
         ListContent achievements = new ListContent("achievement1", "achievement2", "achievement3");
         ListContent qualifications = new ListContent("qualification1", "qualification2", "qualification3");
-        Company company1 = new Company("ООО Рога и копыта", "https://thebestsiteever.com",
-                LocalDate.of(1992, 2, 14), LocalDate.of(2001, 6, 25),
-                "title1", "description1");
-        Company company2 = new Company("APPLE", "https://apple.com",
-                LocalDate.of(2001, 6, 26), LocalDate.now(),
-                "title2", "description2");
         CompanyContent experience = new CompanyContent(company1, company2);
         CompanyContent education = new CompanyContent(company1, company2);
 
@@ -43,16 +47,16 @@ public class ResumeTest {
 
     private static String print(final Resume resume) {
         StringBuilder builder = new StringBuilder();
-        for (ContactType type : resume.getContacts().keySet()) {
+        for (ContactType type : resume.getAllContacts().keySet()) {
             builder.append(type)
                     .append(" ")
-                    .append(resume.getContacts(type))
+                    .append(resume.getContact(type))
                     .append("\n");
         }
-        for (SectionType type : resume.getFields().keySet()) {
+        for (SectionType type : resume.getAllSections().keySet()) {
             builder.append(type)
                     .append(" ")
-                    .append(resume.getFields(type))
+                    .append(resume.getSection(type))
                     .append("\n");
         }
         return builder.toString();
