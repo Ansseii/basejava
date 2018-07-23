@@ -9,7 +9,6 @@ public class ResumeTest {
 
     public static void main(String[] args) {
 
-        Resume resume = new Resume("1", "John Smith");
         Company company1 =
                 new Company("ООО Рога и копыта", "https://thebestsiteever.com",
                         LocalDate.of(1992, 2, 14), LocalDate.of(2001, 6, 25),
@@ -27,6 +26,7 @@ public class ResumeTest {
         CompanyContent experience = new CompanyContent(company1, company2);
         CompanyContent education = new CompanyContent(company1, company2);
 
+        Resume resume = new Resume("1", "John Smith");
         resume.setContact(ContactType.MOBILE, "+7 123 4567");
         resume.setContact(ContactType.SKYPE, "JohnSmith");
         resume.setContact(ContactType.MAIL, "JohnSmith@gmail.com");
