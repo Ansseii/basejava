@@ -9,16 +9,15 @@ public class ResumeTest {
 
     public static void main(String[] args) {
 
-        Company company1 =
-                new Company("ООО Рога и копыта", "https://thebestsiteever.com",
-                        LocalDate.of(1992, 2, 14), LocalDate.of(2001, 6, 25),
-                        "title1", "description1"
-                );
-        Company company2 =
-                new Company("APPLE", "https://apple.com",
-                        LocalDate.of(2001, 6, 26), LocalDate.now(),
-                        "title2", "description2"
-                );
+        Company company1 = new Company("ООО Рога и копыта", "https://thebestsiteever.com",
+                LocalDate.of(1992, 2, 14), LocalDate.of(2001, 6, 25),
+                "title1", "description1"
+        );
+        Company company2 = new Company("APPLE", "https://apple.com",
+                LocalDate.of(2001, 6, 26), LocalDate.now(),
+                "title2", "description2"
+        );
+
         TextContent objective = new TextContent("my position");
         TextContent personal = new TextContent("my personal information");
         ListContent achievements = new ListContent("achievement1", "achievement2", "achievement3");
