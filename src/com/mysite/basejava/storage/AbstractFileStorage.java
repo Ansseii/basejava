@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
-    private File directory;
+    private final File directory;
 
     protected AbstractFileStorage(final File directory) {
         Objects.requireNonNull(directory, "directory must not be null");
