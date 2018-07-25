@@ -24,11 +24,21 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         this.directory = directory;
     }
 
+    private void isNull(final Object[] objects) {
+        if (objects == null) {
+            throw new StorageException("Directory error", directory.getName());
+        }
+    }
+
+    private void throwException(final String message, final String fileName, final Exception exception) {
+        throw new StorageException(message, fileName, exception);
+    }
+
     @Override
     protected List<Resume> toList() {
         List<Resume> resumes = new ArrayList<>();
         File[] files = directory.listFiles();
-        if (files == null) throw new StorageException("Directory error", directory.getName());
+        isNull(files);
         for (File file : files) {
             resumes.add(toGet(file));
         }
@@ -50,26 +60,24 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             toWrite(resume, file);
         } catch (final IOException e) {
-            throw new StorageException("Can't write to file", file.getName(), e);
+            throwException("Can't write to file", file.getName(), e);
         }
     }
 
     @Override
     protected void toSave(final File file, final Resume resume) {
         try {
-            if (!file.createNewFile()) {
-                toUpdate(file, resume);
-            }
+            file.createNewFile();
             toWrite(resume, file);
         } catch (final IOException e) {
-            throw new StorageException("IO error", file.getName(), e);
+            throwException("IO error", file.getName(), e);
         }
     }
 
     @Override
     protected void toDelete(final File file) {
         if (!file.delete()) {
-            throw new StorageException("Can't delete file", file.getName());
+           throwException("Can't delete file", file.getName(), null);
         }
     }
 
@@ -78,8 +86,9 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             return toRead(file);
         } catch (IOException e) {
-            throw new StorageException("Can't read from file", file.getName(), e);
+            throwException("Can't read from file", file.getName(), e);
         }
+        return null;
     }
 
     @Override
@@ -95,9 +104,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public int size() {
         String[] list = directory.list();
-        if (list == null) {
-            throw new StorageException("Directory error", directory.getName());
-        }
+        isNull(list);
         return list.length;
     }
 
