@@ -24,14 +24,14 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         this.directory = directory;
     }
 
-    private void isNull(final Object[] objects) throws StorageException {
+    private void isNull(final Object[] objects) {
         if (objects == null) {
             throw new StorageException("Directory error", directory.getName());
         }
     }
 
     private void throwException(final String message, final String fileName,
-                                final Exception exception) throws StorageException {
+                                final Exception exception) {
         throw new StorageException(message, fileName, exception);
     }
 
