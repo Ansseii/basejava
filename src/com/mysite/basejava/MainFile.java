@@ -19,7 +19,6 @@ public class MainFile {
                 if (!file.isDirectory()) {
                     System.out.println(file.getName());
                 } else {
-                    System.out.println("\nDirectory: " + file.getName() + "\n");
                     recursivePrint(file.getAbsolutePath());
                 }
             }
