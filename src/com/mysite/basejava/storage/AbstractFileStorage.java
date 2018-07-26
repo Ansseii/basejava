@@ -30,11 +30,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
     }
 
-    private void throwException(final String message, final String fileName,
-                                final Exception exception) {
-        throw new StorageException(message, fileName, exception);
-    }
-
     @Override
     protected List<Resume> toList() {
         List<Resume> resumes = new ArrayList<>();
@@ -61,7 +56,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             toWrite(resume, file);
         } catch (final IOException e) {
-            throwException("Can't write to file", file.getName(), e);
+            throw new StorageException("Can't write to file", file.getName(), e);
         }
     }
 
@@ -69,16 +64,16 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void toSave(final File file, final Resume resume) {
         try {
             file.createNewFile();
-            toWrite(resume, file);
+            toUpdate(file, resume);
         } catch (final IOException e) {
-            throwException("IO error", file.getName(), e);
+            throw new StorageException("IO error", file.getName(), e);
         }
     }
 
     @Override
     protected void toDelete(final File file) {
         if (!file.delete()) {
-           throwException("Can't delete file", file.getName(), null);
+            throw new StorageException("Can't delete file", file.getName());
         }
     }
 
@@ -87,18 +82,16 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             return toRead(file);
         } catch (IOException e) {
-            throwException("Can't read from file", file.getName(), e);
+            throw new StorageException("Can't read from file", file.getName(), e);
         }
-        return null;
     }
 
     @Override
     public void clear() {
         File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                toDelete(file);
-            }
+        isNull(files);
+        for (File file : files) {
+            toDelete(file);
         }
     }
 
