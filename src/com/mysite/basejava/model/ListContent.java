@@ -1,11 +1,14 @@
 package com.mysite.basejava.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class ListContent implements Content {
+public class ListContent implements Content, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final List<String> content;
 
