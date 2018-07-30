@@ -15,7 +15,7 @@ import java.util.List;
 
 public abstract class AbstractStorageTest {
 
-    protected static final File STORAGE_DIR = new File("../basejava/src/com/mysite/basejava/storage/test");
+    protected static final File STORAGE_DIR = new File("../basejava/test/TestFileStorage");
 
     protected final Storage storage;
 
