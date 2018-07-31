@@ -2,17 +2,20 @@ package com.mysite.basejava.storage;
 
 import com.mysite.basejava.exception.StorageException;
 import com.mysite.basejava.model.Resume;
+import com.mysite.basejava.serialization.Strategy;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
 
     private final File directory;
 
-    protected AbstractFileStorage(final File directory) {
+    private final Strategy strategy;
+
+    protected FileStorage(final File directory, final Strategy strategy) {
         Objects.requireNonNull(directory, "directory must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
@@ -21,6 +24,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
         }
         this.directory = directory;
+        this.strategy = strategy;
     }
 
     private void isNull(final Object[] objects) {
@@ -53,7 +57,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void toUpdate(final File file, final Resume resume) {
         try {
-            toWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
+            strategy.toWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (final IOException e) {
             throw new StorageException("Can't write to file", file.getName(), e);
         }
@@ -79,7 +83,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected Resume toGet(final File file) {
         try {
-            return toRead(new BufferedInputStream(new FileInputStream(file)));
+            return strategy.toRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("Can't read from file", file.getName(), e);
         }
@@ -100,8 +104,4 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         isNull(list);
         return list.length;
     }
-
-    protected abstract void toWrite(final Resume resume, final OutputStream outputStream) throws IOException;
-
-    protected abstract Resume toRead(final InputStream inputStream) throws IOException;
 }
