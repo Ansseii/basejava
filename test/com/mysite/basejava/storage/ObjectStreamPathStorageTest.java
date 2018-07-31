@@ -1,9 +1,9 @@
 package com.mysite.basejava.storage;
 
 
-public class AbstractPathStorageTest extends AbstractStorageTest {
+public class ObjectStreamPathStorageTest extends AbstractStorageTest {
 
-    public AbstractPathStorageTest() {
+    public ObjectStreamPathStorageTest() {
         super(new ObjectStreamPathStorage(STORAGE_DIR.toString()));
     }
 }
