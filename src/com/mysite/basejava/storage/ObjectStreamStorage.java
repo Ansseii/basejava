@@ -22,7 +22,7 @@ public class ObjectStreamStorage extends AbstractFileStorage {
     protected Resume toRead(InputStream inputStream) throws IOException {
         try (ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
             return (Resume) objectInputStream.readObject();
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
             throw new StorageException("Error read resume", null, e);
         }
     }
