@@ -5,7 +5,7 @@ import com.mysite.basejava.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamPathStorage implements Strategy {
+public class ObjectStreamStrategy implements Strategy {
 
     @Override
     public void toWrite(final Resume resume, final OutputStream outputStream) throws IOException {
