@@ -1,13 +1,15 @@
 package com.mysite.basejava.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-public class TextContent implements Content, Serializable {
+public class TextContent extends Content {
 
     private static final long serialVersionUID = 1L;
 
-    private final String content;
+    private String content;
+
+    public TextContent() {
+    }
 
     public TextContent(final String content) {
         this.content = content;

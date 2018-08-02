@@ -1,5 +1,10 @@
 package com.mysite.basejava.model;
 
+import util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -7,12 +12,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Link link;
+    private Link link;
     private final List<Period> periods = new LinkedList<>();
+
+    public Company() {
+    }
 
     public Company(final String siteName, final String url, final Period... period) {
         periods.addAll(Arrays.asList(period));
@@ -42,14 +51,20 @@ public class Company implements Serializable {
                 '}';
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Period implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
-        private final LocalDate startDate;
-        private final LocalDate endDate;
-        private final String title;
-        private final String description;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate endDate;
+        private String title;
+        private String description;
+
+        public Period() {
+        }
 
         public Period(final LocalDate startDate, final LocalDate endDate,
                       final String title, final String description) {

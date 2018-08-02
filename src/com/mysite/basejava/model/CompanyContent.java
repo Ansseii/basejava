@@ -1,16 +1,18 @@
 package com.mysite.basejava.model;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class CompanyContent implements Content, Serializable {
+public class CompanyContent extends Content {
 
     private static final long serialVersionUID = 1L;
 
-    private final List<Company> companies;
+    private List<Company> companies;
+
+    public CompanyContent() {
+    }
 
     public CompanyContent(final Company... company) {
         companies = new LinkedList<>(Arrays.asList(company));
