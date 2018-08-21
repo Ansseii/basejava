@@ -18,7 +18,7 @@ public class Company implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Link link;
-    private final List<Period> periods = new LinkedList<>();
+    private List<Period> periods = new LinkedList<>();
 
     public Company() {
     }
@@ -26,6 +26,19 @@ public class Company implements Serializable {
     public Company(final String siteName, final String url, final Period... period) {
         periods.addAll(Arrays.asList(period));
         this.link = new Link(siteName, url);
+    }
+
+    public Company(final Link link, final List<Period> periods) {
+        this.link = link;
+        this.periods = periods;
+    }
+
+    public Link getLink() {
+        return link;
+    }
+
+    public List<Period> getPeriods() {
+        return periods;
     }
 
     @Override
@@ -74,6 +87,22 @@ public class Company implements Serializable {
             this.endDate = endDate;
             this.title = title;
             this.description = description;
+        }
+
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public LocalDate getEndDate() {
+            return endDate;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDescription() {
+            return description;
         }
 
         @Override

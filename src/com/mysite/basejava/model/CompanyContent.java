@@ -18,6 +18,10 @@ public class CompanyContent extends Content {
         companies = new LinkedList<>(Arrays.asList(company));
     }
 
+    public CompanyContent(final List<Company> companies) {
+        this.companies = companies;
+    }
+
     public List<Company> getCompanies() {
         return companies;
     }

@@ -18,6 +18,10 @@ public class ListContent extends Content {
         content = new LinkedList<>(Arrays.asList(element));
     }
 
+    public ListContent(final List<String> content) {
+        this.content = content;
+    }
+
     public List<String> getContent() {
         return content;
     }

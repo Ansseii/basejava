@@ -19,6 +19,10 @@ public class TextContent extends Content {
         return content;
     }
 
+    public void setContent(final String content) {
+        this.content = content;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
