@@ -106,7 +106,6 @@ public class DataStreamStrategy implements Strategy {
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        //TODO
                         writeCollection(dataOutputStream, ((CompanyContent) content).getCompanies(), company -> {
                             dataOutputStream.writeUTF(company.getLink().getName());
                             dataOutputStream.writeUTF(company.getLink().getUrl());
