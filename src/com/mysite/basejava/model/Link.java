@@ -19,7 +19,7 @@ public class Link implements Serializable {
     public Link(final String name, final String url) {
         Objects.requireNonNull(name, "Name must not  be null");
         this.name = name;
-        this.url = url;
+        this.url = url == null ? "" : url;
     }
 
     public String getName() {
