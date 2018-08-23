@@ -8,18 +8,6 @@ import java.util.*;
 
 public class DataStreamStrategy implements Strategy {
 
-    private interface WriteElement<T> {
-        void write(final T element) throws IOException;
-    }
-
-    private interface ReadElement<T> {
-        T read() throws IOException;
-    }
-
-    private interface CollectionElement {
-        void read() throws IOException;
-    }
-
     @Override
     public void toWrite(final Resume resume, final OutputStream outputStream) throws IOException {
         try (DataOutputStream dataOutputStream = new DataOutputStream(outputStream)) {
@@ -102,12 +90,20 @@ public class DataStreamStrategy implements Strategy {
         }
     }
 
+    private interface WriteElement<T> {
+        void write(final T element) throws IOException;
+    }
+
     private void readCollection(final DataInputStream dataInputStream,
                                 final CollectionElement collectionElement) throws IOException {
         int size = dataInputStream.readInt();
         for (int i = 0; i < size; i++) {
             collectionElement.read();
         }
+    }
+
+    private interface CollectionElement {
+        void read() throws IOException;
     }
 
     private <T> List<T> readList(final DataInputStream dataInputStream, final ReadElement<T> element) throws IOException {
@@ -117,6 +113,10 @@ public class DataStreamStrategy implements Strategy {
             list.add(element.read());
         }
         return list;
+    }
+
+    private interface ReadElement<T> {
+        T read() throws IOException;
     }
 
     private Content readContent(final DataInputStream dataInputStream, final SectionType sectionType) throws IOException {
