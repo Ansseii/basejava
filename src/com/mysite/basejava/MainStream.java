@@ -15,10 +15,10 @@ public class MainStream {
 
     private static int minValue(final int[] values) {
 
-    return Integer.parseInt(Arrays.stream(values)
-            .distinct()
-            .sorted()
-            .mapToObj(Integer::toString)
-            .collect(Collectors.joining()));
+        return Integer.parseInt(Arrays.stream(values)
+                .distinct()
+                .sorted()
+                .mapToObj(Integer::toString)
+                .collect(Collectors.joining()));
     }
 }
