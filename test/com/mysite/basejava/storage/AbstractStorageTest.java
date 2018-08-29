@@ -51,20 +51,20 @@ public abstract class AbstractStorageTest {
         CompanyContent experience = new CompanyContent(company1, company2);
         CompanyContent education = new CompanyContent(company1, company2);
 
-        resume1.setContact(ContactType.MOBILE, "+7 123 4567");
-        resume1.setContact(ContactType.SKYPE, "JohnSmith");
-        resume1.setContact(ContactType.MAIL, "JohnSmith@gmail.com");
-        resume1.setContact(ContactType.LINKED_IN, "https://linkedin.com");
-        resume1.setContact(ContactType.GITHUB, "https://githib.com");
-        resume1.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com");
-        resume1.setContact(ContactType.HOMEPAGE, "https://JS.com");
-
-        resume1.setSection(SectionType.OBJECTIVE, objective);
-        resume1.setSection(SectionType.PERSONAL, personal);
-        resume1.setSection(SectionType.ACHIEVEMENT, achievements);
-        resume1.setSection(SectionType.QUALIFICATIONS, qualifications);
-        resume1.setSection(SectionType.EXPERIENCE, experience);
-        resume1.setSection(SectionType.EDUCATION, education);
+//        resume1.setContact(ContactType.MOBILE, "+7 123 4567");
+//        resume1.setContact(ContactType.SKYPE, "JohnSmith");
+//        resume1.setContact(ContactType.MAIL, "JohnSmith@gmail.com");
+//        resume1.setContact(ContactType.LINKED_IN, "https://linkedin.com");
+//        resume1.setContact(ContactType.GITHUB, "https://githib.com");
+//        resume1.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com");
+//        resume1.setContact(ContactType.HOMEPAGE, "https://JS.com");
+//
+//        resume1.setSection(SectionType.OBJECTIVE, objective);
+//        resume1.setSection(SectionType.PERSONAL, personal);
+//        resume1.setSection(SectionType.ACHIEVEMENT, achievements);
+//        resume1.setSection(SectionType.QUALIFICATIONS, qualifications);
+//        resume1.setSection(SectionType.EXPERIENCE, experience);
+//        resume1.setSection(SectionType.EDUCATION, education);
     }
 
     public AbstractStorageTest(final Storage storage) {
