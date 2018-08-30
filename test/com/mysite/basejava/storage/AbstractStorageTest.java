@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class AbstractStorageTest {
 
@@ -20,11 +21,11 @@ public abstract class AbstractStorageTest {
 
     protected final Storage storage;
 
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
-    private static final String UUID_5 = "uuid5";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
+    private static final String UUID_5 = UUID.randomUUID().toString();
 
     private static final Resume resume1 = new Resume(UUID_1, "Ivanov Ivan Ivanovich");
     private static final Resume resume2 = new Resume(UUID_2, "Petrov Petr Petrovich");

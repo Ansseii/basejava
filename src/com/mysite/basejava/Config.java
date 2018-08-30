@@ -1,5 +1,8 @@
 package com.mysite.basejava;
 
+import com.mysite.basejava.storage.SqlStorage;
+import com.mysite.basejava.storage.Storage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,9 +16,8 @@ public class Config {
     private final static Config INSTANCE = new Config();
 
     private File storageDir;
-    private File dbUrl;
-    private File dbUser;
-    private File dbPassword;
+
+    private Storage storage;
 
     public static Config get() {
         return INSTANCE;
@@ -27,9 +29,8 @@ public class Config {
             Properties props = new Properties();
             props.load(inputStream);
             storageDir = new File(props.getProperty("storage.dir"));
-            dbUrl = new File(props.getProperty("db.url"));
-            dbUser = new File(props.getProperty("db.user"));
-            dbPassword = new File(props.getProperty("db.password"));
+            storage = new SqlStorage(props.getProperty("db.url"),
+                    props.getProperty("db.user"), props.getProperty("db.password"));
         } catch (IOException e) {
             throw new IllegalStateException("Invalid config file " + PROPERTIES.getAbsolutePath());
         }
@@ -39,15 +40,7 @@ public class Config {
         return storageDir;
     }
 
-    public File getDbUrl() {
-        return dbUrl;
-    }
-
-    public File getDbUser() {
-        return dbUser;
-    }
-
-    public File getDbPassword() {
-        return dbPassword;
+    public Storage getStorage() {
+        return storage;
     }
 }
