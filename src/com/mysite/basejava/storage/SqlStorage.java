@@ -34,7 +34,7 @@ public class SqlStorage implements Storage {
                     " WHERE uuid = ?")) {
                 preparedStatement.setString(1, resume.getFullName());
                 preparedStatement.setString(2, resume.getUuid());
-                if (preparedStatement.executeUpdate() != 1) {
+                if (preparedStatement.executeUpdate() == 0) {
                     throw new NotExistStorageException(resume.getUuid());
                 }
             }
