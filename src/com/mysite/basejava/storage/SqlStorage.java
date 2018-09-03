@@ -2,14 +2,15 @@ package com.mysite.basejava.storage;
 
 
 import com.mysite.basejava.exception.NotExistStorageException;
+import com.mysite.basejava.model.ContactType;
 import com.mysite.basejava.model.Resume;
 import com.mysite.basejava.sql.SqlHelper;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SqlStorage implements Storage {
 
@@ -26,66 +27,130 @@ public class SqlStorage implements Storage {
 
     @Override
     public void update(final Resume resume) {
-        sqlHelper.doCommand("UPDATE resume SET full_name = ? WHERE uuid = ?", preparedStatement -> {
-            preparedStatement.setString(1, resume.getFullName());
-            preparedStatement.setString(2, resume.getUuid());
-            if (preparedStatement.executeUpdate() == 0) {
-                throw new NotExistStorageException(resume.getUuid());
+        sqlHelper.transactionalExecute(connection -> {
+            try (PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "UPDATE resume " +
+                    "   SET full_name = ?" +
+                    " WHERE uuid = ?")) {
+                preparedStatement.setString(1, resume.getFullName());
+                preparedStatement.setString(2, resume.getUuid());
+                if (preparedStatement.executeUpdate() != 1) {
+                    throw new NotExistStorageException(resume.getUuid());
+                }
             }
+            sqlHelper.doCommand("" +
+                            "DELETE FROM contact" +
+                            " WHERE resume_uuid=?",
+                    preparedStatement -> {
+                        preparedStatement.setString(1, resume.getUuid());
+                        preparedStatement.execute();
+                        return null;
+                    });
+            addContacts(connection, resume);
             return null;
         });
     }
 
     @Override
     public void save(final Resume resume) {
-        sqlHelper.doCommand("INSERT INTO resume (uuid, full_name) VALUES (?, ?)", preparedStatement -> {
-            preparedStatement.setString(1, resume.getUuid());
-            preparedStatement.setString(2, resume.getFullName());
-            preparedStatement.execute();
+        sqlHelper.transactionalExecute(connection -> {
+            try (PreparedStatement preparedStatement
+                         = connection.prepareStatement("" +
+                    "INSERT INTO resume (uuid, full_name) " +
+                    "     VALUES (?, ?)")) {
+                preparedStatement.setString(1, resume.getUuid());
+                preparedStatement.setString(2, resume.getFullName());
+                preparedStatement.execute();
+            }
+            addContacts(connection, resume);
             return null;
         });
     }
 
     @Override
     public Resume get(final String uuid) {
-        return sqlHelper.doCommand("SELECT * FROM resume r WHERE r.uuid =?", preparedStatement -> {
-            preparedStatement.setString(1, uuid);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (!resultSet.next()) {
-                throw new NotExistStorageException(uuid);
-            }
-            return new Resume(uuid, resultSet.getString("full_name"));
-        });
+        return sqlHelper.doCommand("" +
+                        "   SELECT * FROM resume r " +
+                        "LEFT JOIN contact c " +
+                        "       ON r.uuid = c.resume_uuid " +
+                        "    WHERE r.uuid =? ",
+                preparedStatement -> {
+                    preparedStatement.setString(1, uuid);
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (!resultSet.next()) {
+                        throw new NotExistStorageException(uuid);
+                    }
+                    Resume resume = new Resume(uuid, resultSet.getString("full_name"));
+                    do {
+                        addContact(resultSet, resume);
+                    } while (resultSet.next());
+                    return resume;
+                });
     }
 
     @Override
     public void delete(final String uuid) {
-        sqlHelper.doCommand("DELETE FROM resume WHERE uuid=?", preparedStatement -> {
-            preparedStatement.setString(1, uuid);
-            if (preparedStatement.executeUpdate() == 0) {
-                throw new NotExistStorageException(uuid);
-            }
-            return null;
-        });
+        sqlHelper.doCommand("" +
+                        "DELETE FROM resume" +
+                        " WHERE uuid=?",
+                preparedStatement -> {
+                    preparedStatement.setString(1, uuid);
+                    if (preparedStatement.executeUpdate() == 0) {
+                        throw new NotExistStorageException(uuid);
+                    }
+                    return null;
+                });
     }
 
     @Override
     public List<Resume> getAllSorted() {
-        return sqlHelper.doCommand("SELECT * FROM resume r ORDER BY full_name,uuid", preparedStatement -> {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Resume> resumes = new ArrayList<>();
-            while (resultSet.next()) {
-                resumes.add(new Resume(resultSet.getString("uuid"), resultSet.getString("full_name")));
-            }
-            return resumes;
-        });
+        return sqlHelper.doCommand("" +
+                        "SELECT * FROM resume r " +
+                        "LEFT JOIN contact c ON r.uuid = c.resume_uuid " +
+                        " ORDER BY full_name,uuid",
+                preparedStatement -> {
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    Map<String, Resume> resumesMap = new LinkedHashMap<>();
+                    while (resultSet.next()) {
+                        String uuid = resultSet.getString("uuid");
+                        Resume resume = resumesMap.get(uuid);
+                        if (resume == null) {
+                            resume = new Resume(uuid, resultSet.getString("full_name"));
+                            resumesMap.put(uuid, resume);
+                        }
+                        addContact(resultSet, resume);
+                    }
+                    return new ArrayList<>(resumesMap.values());
+                });
     }
 
     @Override
     public int size() {
-        return sqlHelper.doCommand("SELECT count(*) FROM resume", preparedStatement -> {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next() ? resultSet.getInt(1) : 0;
-        });
+        return sqlHelper.doCommand("SELECT count(*) FROM resume",
+                preparedStatement -> {
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    return resultSet.next() ? resultSet.getInt(1) : 0;
+                });
+    }
+
+    private void addContact(final ResultSet resultSet, final Resume resume) throws SQLException {
+        String value = resultSet.getString("value");
+        if (value != null) {
+            ContactType contactType = ContactType.valueOf(resultSet.getString("type"));
+            resume.setContact(contactType, value);
+        }
+    }
+
+    private void addContacts(final Connection connection, final Resume resume) throws SQLException {
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?, ?, ?)")) {
+            for (Map.Entry<ContactType, String> entry : resume.getAllContacts().entrySet()) {
+                preparedStatement.setString(1, resume.getUuid());
+                preparedStatement.setString(2, entry.getKey().name());
+                preparedStatement.setString(3, entry.getValue());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+        }
     }
 }

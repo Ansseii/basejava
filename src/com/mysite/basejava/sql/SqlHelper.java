@@ -30,4 +30,27 @@ public class SqlHelper {
     public interface SqlStatement<T> {
         T doCommand(final PreparedStatement preparedStatement) throws SQLException;
     }
+
+    public <T> T transactionalExecute(SqlTransaction<T> sqlTransaction) {
+        try (Connection connection = connectionFactory.getConnection()) {
+            try {
+                connection.setAutoCommit(false);
+                T res = sqlTransaction.doCommand(connection);
+                connection.commit();
+                return res;
+            } catch (SQLException e) {
+                connection.rollback();
+                if (e.getSQLState().equals("23505")) {
+                    throw new ExistStorageException(null);
+                }
+                throw new StorageException(e);
+            }
+        } catch (SQLException e) {
+            throw new StorageException(e);
+        }
+    }
+
+    public interface SqlTransaction<T> {
+        T doCommand(final Connection connection) throws SQLException;
+    }
 }

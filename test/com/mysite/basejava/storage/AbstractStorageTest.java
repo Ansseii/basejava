@@ -27,11 +27,11 @@ public abstract class AbstractStorageTest {
     private static final String UUID_4 = UUID.randomUUID().toString();
     private static final String UUID_5 = UUID.randomUUID().toString();
 
-    private static final Resume resume1 = new Resume(UUID_1, "Ivanov Ivan Ivanovich");
-    private static final Resume resume2 = new Resume(UUID_2, "Petrov Petr Petrovich");
-    private static final Resume resume3 = new Resume(UUID_3, "Ivanov Ivan Ivanovich");
-    private static final Resume resume4 = new Resume(UUID_4, "Sidorov Andrei Andreevich");
-    private static final Resume resume5 = new Resume(UUID_5, "Sidorov Andrei Andreevich");
+    private static final Resume resume1 = new Resume(UUID_1, "UUID_1");
+    private static final Resume resume2 = new Resume(UUID_2, "UUID_2");
+    private static final Resume resume3 = new Resume(UUID_3, "UUID_3");
+    private static final Resume resume4 = new Resume(UUID_4, "UUID_4");
+    private static final Resume resume5 = new Resume(UUID_5, "UUID_5");
 
     static {
         Company company1 = new Company("ООО Рога и копыта", "https://thebestsiteever.com",
@@ -52,13 +52,13 @@ public abstract class AbstractStorageTest {
         CompanyContent experience = new CompanyContent(company1, company2);
         CompanyContent education = new CompanyContent(company1, company2);
 
-//        resume1.setContact(ContactType.MOBILE, "+7 123 4567");
-//        resume1.setContact(ContactType.SKYPE, "JohnSmith");
-//        resume1.setContact(ContactType.MAIL, "JohnSmith@gmail.com");
-//        resume1.setContact(ContactType.LINKED_IN, "https://linkedin.com");
-//        resume1.setContact(ContactType.GITHUB, "https://githib.com");
-//        resume1.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com");
-//        resume1.setContact(ContactType.HOMEPAGE, "https://JS.com");
+        resume1.setContact(ContactType.MOBILE, "+7 123 4567");
+        resume1.setContact(ContactType.SKYPE, "JohnSmith");
+        resume1.setContact(ContactType.MAIL, "JohnSmith@gmail.com");
+        resume1.setContact(ContactType.LINKED_IN, "https://linkedin.com");
+        resume1.setContact(ContactType.GITHUB, "https://githib.com");
+        resume1.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com");
+        resume1.setContact(ContactType.HOMEPAGE, "https://JS.com");
 //
 //        resume1.setSection(SectionType.OBJECTIVE, objective);
 //        resume1.setSection(SectionType.PERSONAL, personal);
