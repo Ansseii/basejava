@@ -7,7 +7,10 @@ import com.mysite.basejava.model.Resume;
 import com.mysite.basejava.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SqlStorage implements Storage {
 
@@ -104,7 +107,7 @@ public class SqlStorage implements Storage {
                     while (resultSet.next()) {
                         String uuid = resultSet.getString("uuid");
                         String fullName = resultSet.getString("full_name");
-                        addContact(resultSet, resumesMap.computeIfAbsent(uuid, r -> new Resume(uuid, fullName)));
+                        addContact(resultSet, resumesMap.computeIfAbsent(uuid, key -> new Resume(key, fullName)));
                     }
                     return new ArrayList<>(resumesMap.values());
                 });
