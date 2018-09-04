@@ -7,10 +7,7 @@ import com.mysite.basejava.model.Resume;
 import com.mysite.basejava.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SqlStorage implements Storage {
 
@@ -38,14 +35,7 @@ public class SqlStorage implements Storage {
                     throw new NotExistStorageException(resume.getUuid());
                 }
             }
-            sqlHelper.doCommand("" +
-                            "DELETE FROM contact" +
-                            " WHERE resume_uuid=?",
-                    preparedStatement -> {
-                        preparedStatement.setString(1, resume.getUuid());
-                        preparedStatement.execute();
-                        return null;
-                    });
+            deleteContact(connection, resume);
             addContacts(connection, resume);
             return null;
         });
@@ -106,19 +96,15 @@ public class SqlStorage implements Storage {
     public List<Resume> getAllSorted() {
         return sqlHelper.doCommand("" +
                         "SELECT * FROM resume r " +
-                        "LEFT JOIN contact c ON r.uuid = c.resume_uuid " +
+                        "  LEFT JOIN contact c ON r.uuid = c.resume_uuid " +
                         " ORDER BY full_name,uuid",
                 preparedStatement -> {
                     ResultSet resultSet = preparedStatement.executeQuery();
                     Map<String, Resume> resumesMap = new LinkedHashMap<>();
                     while (resultSet.next()) {
                         String uuid = resultSet.getString("uuid");
-                        Resume resume = resumesMap.get(uuid);
-                        if (resume == null) {
-                            resume = new Resume(uuid, resultSet.getString("full_name"));
-                            resumesMap.put(uuid, resume);
-                        }
-                        addContact(resultSet, resume);
+                        String fullName = resultSet.getString("full_name");
+                        addContact(resultSet, resumesMap.computeIfAbsent(uuid, r -> new Resume(uuid, fullName)));
                     }
                     return new ArrayList<>(resumesMap.values());
                 });
@@ -131,6 +117,16 @@ public class SqlStorage implements Storage {
                     ResultSet resultSet = preparedStatement.executeQuery();
                     return resultSet.next() ? resultSet.getInt(1) : 0;
                 });
+    }
+
+    private void deleteContact(final Connection connection, final Resume resume) throws SQLException {
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement("" +
+                "DELETE FROM contact" +
+                " WHERE resume_uuid=?")) {
+            preparedStatement.setString(1, resume.getUuid());
+            preparedStatement.execute();
+        }
     }
 
     private void addContact(final ResultSet resultSet, final Resume resume) throws SQLException {

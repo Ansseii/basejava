@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+
 public abstract class AbstractStorageTest {
 
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
@@ -56,7 +57,7 @@ public abstract class AbstractStorageTest {
         resume1.setContact(ContactType.SKYPE, "JohnSmith");
         resume1.setContact(ContactType.MAIL, "JohnSmith@gmail.com");
         resume1.setContact(ContactType.LINKED_IN, "https://linkedin.com");
-        resume1.setContact(ContactType.GITHUB, "https://githib.com");
+        resume1.setContact(ContactType.GITHUB, "https://github.com");
         resume1.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com");
         resume1.setContact(ContactType.HOMEPAGE, "https://JS.com");
 //
