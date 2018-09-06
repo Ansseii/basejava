@@ -1,4 +1,4 @@
-package util;
+package com.mysite.basejava.util;
 
 import com.google.gson.*;
 

@@ -1,4 +1,4 @@
-package util;
+package com.mysite.basejava.util;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

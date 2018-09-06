@@ -1,7 +1,7 @@
 package com.mysite.basejava.serialization;
 
 import com.mysite.basejava.model.*;
-import util.XmlParser;
+import com.mysite.basejava.util.XmlParser;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

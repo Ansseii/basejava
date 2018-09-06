@@ -1,6 +1,6 @@
 package com.mysite.basejava.model;
 
-import util.LocalDateAdapter;
+import com.mysite.basejava.util.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

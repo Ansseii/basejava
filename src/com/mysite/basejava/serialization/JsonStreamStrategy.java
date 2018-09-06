@@ -1,7 +1,7 @@
 package com.mysite.basejava.serialization;
 
 import com.mysite.basejava.model.Resume;
-import util.JsonParser;
+import com.mysite.basejava.util.JsonParser;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
