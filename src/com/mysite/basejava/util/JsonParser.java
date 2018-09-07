@@ -25,7 +25,7 @@ public class JsonParser {
         GSON.toJson(object, writer);
     }
 
-    public static <T> String write(final Object object, final Class<T> clazz) {
+    public static <T> String write(final T object, final Class<T> clazz) {
         return GSON.toJson(object, clazz);
     }
 
