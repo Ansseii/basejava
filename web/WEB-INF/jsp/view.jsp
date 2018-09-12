@@ -1,4 +1,3 @@
-<%@ page import="com.mysite.basejava.model.Content" %>
 <%@ page import="com.mysite.basejava.model.TextContent" %>
 <%@ page import="com.mysite.basejava.model.ListContent" %>
 <%@ page import="com.mysite.basejava.model.CompanyContent" %>
