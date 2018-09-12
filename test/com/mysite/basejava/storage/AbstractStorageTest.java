@@ -18,7 +18,6 @@ import java.util.UUID;
 
 public abstract class AbstractStorageTest {
 
-    //VM options -ea -Droot="/Users/ansseii"
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
     protected final Storage storage;

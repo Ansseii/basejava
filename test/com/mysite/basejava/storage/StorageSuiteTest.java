@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-
+//VM options -ea -Droot="/Users/ansseii"
 @Suite.SuiteClasses({
         ArrayStorageTest.class,
         ListStorageTest.class,
