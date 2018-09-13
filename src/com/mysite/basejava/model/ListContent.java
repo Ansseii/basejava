@@ -8,6 +8,7 @@ import java.util.Objects;
 public class ListContent extends Content {
 
     private static final long serialVersionUID = 1L;
+    public static final ListContent EMPTY = new ListContent("");
 
     private List<String> content;
 

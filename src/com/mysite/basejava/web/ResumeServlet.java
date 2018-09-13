@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mysite.basejava.util.DateUtil.isEmpty;
 import static com.mysite.basejava.util.DateUtil.parse;
 
 public class ResumeServlet extends HttpServlet {
@@ -31,8 +32,15 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         final String uuid = request.getParameter("uuid");
         final String fullName = request.getParameter("fullName");
-        final Resume resume = storage.get(uuid);
-        resume.setFullName(fullName);
+        Resume resume;
+
+        if (create(uuid)) {
+            resume = new Resume(fullName);
+        } else {
+            resume = storage.get(uuid);
+            resume.setFullName(fullName);
+        }
+
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
             if (isEmpty(value)) {
@@ -41,6 +49,7 @@ public class ResumeServlet extends HttpServlet {
                 resume.setContact(type, value);
             }
         }
+
         for (SectionType type : SectionType.values()) {
             final String value = request.getParameter(type.name());
             final String[] values = request.getParameterValues(type.name());
@@ -83,7 +92,11 @@ public class ResumeServlet extends HttpServlet {
                 }
             }
         }
-        storage.update(resume);
+        if (create(uuid)) {
+            storage.save(resume);
+        } else {
+            storage.update(resume);
+        }
         response.sendRedirect("resume");
     }
 
@@ -98,6 +111,10 @@ public class ResumeServlet extends HttpServlet {
         }
         Resume resume;
         switch (action) {
+            case "add":
+                resume = Resume.EMPTY;
+                fillEmptyResume(resume);
+                break;
             case "delete":
                 storage.delete(uuid);
                 response.sendRedirect("resume");
@@ -107,6 +124,30 @@ public class ResumeServlet extends HttpServlet {
                 break;
             case "edit":
                 resume = storage.get(uuid);
+                for (SectionType type : SectionType.values()) {
+                    Content content = resume.getSection(type);
+                    switch (type) {
+                        case PERSONAL:
+                        case OBJECTIVE:
+                            if (content == null) {
+                                content = new TextContent("");
+                            }
+                            break;
+                        case ACHIEVEMENT:
+                        case QUALIFICATIONS:
+                            if (content == null) {
+                                content = ListContent.EMPTY;
+                            }
+                            break;
+                        case EXPERIENCE:
+                        case EDUCATION:
+                            if (content == null) {
+                                content = new CompanyContent(Company.EMPTY);
+                            }
+                            break;
+                    }
+                    resume.setSection(type, content);
+                }
                 break;
             default:
                 throw new IllegalArgumentException("Action " + action + " is illegal");
@@ -117,8 +158,24 @@ public class ResumeServlet extends HttpServlet {
         ).forward(request, response);
     }
 
-    private static boolean isEmpty(final String str) {
-        return str == null || str.trim().length() == 0;
+    private boolean create(final String uuid) {
+        return (uuid == null || uuid.length() == 0);
     }
 
+    private void fillEmptyResume(final Resume resume) {
+        resume.setContact(ContactType.MOBILE, "");
+        resume.setContact(ContactType.SKYPE, "");
+        resume.setContact(ContactType.MAIL, "");
+        resume.setContact(ContactType.LINKED_IN, "");
+        resume.setContact(ContactType.GITHUB, "");
+        resume.setContact(ContactType.STACKOVERFLOW, "");
+        resume.setContact(ContactType.HOMEPAGE, "");
+
+        resume.setSection(SectionType.OBJECTIVE, new TextContent(""));
+        resume.setSection(SectionType.PERSONAL, new TextContent(""));
+        resume.setSection(SectionType.ACHIEVEMENT, ListContent.EMPTY);
+        resume.setSection(SectionType.QUALIFICATIONS, ListContent.EMPTY);
+        resume.setSection(SectionType.EXPERIENCE, new CompanyContent(Company.EMPTY));
+        resume.setSection(SectionType.EDUCATION, new CompanyContent(Company.EMPTY));
+    }
 }

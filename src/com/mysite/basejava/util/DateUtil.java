@@ -21,7 +21,7 @@ public class DateUtil {
         return LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(), 1);
     }
 
-    private static boolean isEmpty(final String str) {
+    public static boolean isEmpty(final String str) {
         return str == null || str.trim().length() == 0;
     }
 }

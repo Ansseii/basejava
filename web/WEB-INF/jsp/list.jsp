@@ -10,12 +10,14 @@
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <section>
+
     <table border="1" cellpadding="8" cellspacing="0">
         <tr>
             <th>Имя</th>
             <th>Email</th>
             <th></th>
             <th></th>
+            <a href="resume?action=add"><img src="img/add.png"> </a>
         </tr>
         <jsp:useBean id="resumes" scope="request" type="java.util.List"/>
         <c:forEach items="${resumes}" var="resume">

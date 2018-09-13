@@ -16,6 +16,7 @@ import java.util.Objects;
 public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final Company EMPTY = new Company("", "", Period.EMPTY);
 
     private Link link;
     private List<Period> periods = new LinkedList<>();
@@ -67,6 +68,7 @@ public class Company implements Serializable {
     public static class Period implements Serializable {
 
         private static final long serialVersionUID = 1L;
+        public static final Period EMPTY = new Period();
 
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
